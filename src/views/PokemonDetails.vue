@@ -1,21 +1,26 @@
 <template>
+    <div class="back-to-home">
+        <router-link to='/'>
+            <i class="pi pi-arrow-left"></i>
+        </router-link>
+    </div>
     <section class="big-card">
         <header class="header">
-            <p>{{ data.name }}</p>
-            <p :style="{ backgroundColor: pokemonColor() }" class="type-pokemon">{{ data.types[0].type.name }}</p>
+            <p>{{ data?.name }}</p>
+            <p :style="{ backgroundColor: pokemonColor() }" class="type-pokemon">{{ data?.types[0].type.name }}</p>
             <img class="pokemon-image" :src="data.sprites.front_default" alt="">
             <div :style="{ backgroundColor: pokemonColor() }" class="background-type-color">
 
             </div>
         </header>
-        <div class="pokemon-abilities">
+        <div class="pokemon-info">
             <h3>Abilities :</h3>
             <div v-for="(value, index) in data.abilities" :key="'value' + index">
                 <p :style="{ borderColor: pokemonColor() }" class="ability">{{ value.ability.name }}</p>
             </div>
             <div>
                 <p>Weight : {{ data.weight / 10 }}kg</p>
-                <p>Base experience : {{ data.base_experience  }}XP</p>
+                <p>Base experience : {{ data.base_experience }}XP</p>
             </div>
         </div>
     </section>
@@ -47,7 +52,7 @@ export default {
                 })
         },
         pokemonColor() {
-            const color = this.data.types[0].type.name
+            const color = this?.data?.types[0].type.name
             switch (color) {
                 case 'poison':
                     return '#ff7200'
@@ -117,7 +122,16 @@ export default {
             right: -4rem;
             transform: translateY(-50%);
             width: 420px;
+
+            @media(max-width: 640px) {
+                width: 270px;
+                right: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
+
+
 
         .background-type-color {
             position: absolute;
@@ -127,6 +141,13 @@ export default {
             right: 0;
             top: 0;
             border-radius: 0px 6px 6px 0px;
+
+            @media(max-width: 650px) {
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 4.5rem;
+            }
         }
 
         p {
@@ -141,6 +162,19 @@ export default {
         border-radius: 6px;
         border-width: 1px;
         border-style: solid;
+    }
+
+    
+}
+.back-to-home {
+    position: absolute;
+    left: 10vw;
+    top: 0;
+    transform: translateY(3rem);
+    a {
+        color: #fff;
+        font-weight: bold;
+        text-decoration: underline;
     }
 }
 </style>

@@ -3,5 +3,6 @@
 </template>
 
 <script>
+import 'primeicons/primeicons.css';
 
 </script>

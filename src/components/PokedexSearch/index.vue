@@ -27,8 +27,10 @@ export default {
     <section class="pokedex-search">
         <input @keydown.enter.prevent="this.fetchFilter" :value="searchStore.search" v-on:change="getInputData($event)"
             type='text' placeholder="Type pokemon name" class="_input" />
-        <button class="button_submit" @click="this.fetchFilter">Submit</button>
-        <button class="button_clear" @click="this.clearData">Clear</button>
+        <span class='button-content'>
+            <button class="button_submit" @click="this.fetchFilter">Submit</button>
+            <button class="button_clear" @click="this.clearData">Clear</button>
+        </span>
     </section>
 </template>
 
@@ -47,7 +49,7 @@ export default {
         background-color: #111;
         border: none;
         height: 30px;
-        width: 100%;
+        width: 80%;
         outline: none;
         color: #fff;
         border-radius: 6px;
@@ -56,6 +58,12 @@ export default {
         &::placeholder {
             color: #fff;
         }
+    }
+
+    @media(max-width: 600px) {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
     }
 }
 
@@ -73,6 +81,10 @@ export default {
     border: 1px solid #fff;
     margin-left: 30px;
     cursor: pointer;
+
+    @media(max-width: 600px) {
+        margin-left: 0;
+    }
 }
 
 .button_clear {
@@ -89,6 +101,14 @@ export default {
     border: 1px solid #f70000;
     margin-left: 8px;
     cursor: pointer;
+}
+
+.button-content {
+    display: flex;
+
+    @media(max-width: 600px) {
+        margin-top: 20px;
+    }
 }
 </style>
 
