@@ -1,7 +1,54 @@
-# Vue 3 + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# Desafio técnico Copy Base
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+
+## Funcionalidades
+
+- Listagem de pokémons
+- Filtro de pokémons por nome
+- Listagem de detalhes de um pokémon específico 
+
+
+
+## Stack utilizada
+
+**Front-end:** VueJS, Vue Router, Pinia, Scss, Axios
+
+
+
+
+## Rodando localmente
+
+Clone o projeto
+
+```bash
+  git clone https://github.com/vgabrielk/pokedex-vue
+```
+
+Entre no diretório do projeto
+
+```bash
+  cd pokedex-vue
+```
+
+Instale as dependências
+
+```bash
+  npm install ou yarn add
+```
+
+Inicie o servidor de desenvolvimento
+
+```bash
+  npm run dev
+```
+
+## Paleta de cores
+
+| Cor               | Hexadecimal                                                |
+| ----------------- | ---------------------------------------------------------------- |
+| Cor primária       | ![#313131](https://via.placeholder.com/10/313131?text=+) #313131 |
+| Cor secundária       | ![#fff](https://via.placeholder.com/10/fff?text=+) #fff |
+

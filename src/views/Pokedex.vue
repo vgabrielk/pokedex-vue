@@ -1,5 +1,5 @@
 <template>
-  <img class="logo-pokemon" src="../../public/img/logo.png" alt="">
+  <img class="logo-pokemon" src="/img/logo.png" alt="">
   <PokedexSearch :fetchFilter="fetchFilter" :clearData="clearData" />
   <div v-for="pokemon in pokemons">
     <PokeCard :data="pokemon" />
