@@ -1,3 +1,11 @@
+<template>
+  <img class="logo-pokemon" src="../../public/img/logo.png" alt="">
+  <PokedexSearch />
+  <div v-for="pokemon in pokemons">
+    <PokeCard :data="pokemon" />
+  </div>
+</template>
+
 <script>
 import PokedexSearch from '../components/PokedexSearch/index.vue'
 import PokeCard from '../components/PokeCard/index.vue'
@@ -33,38 +41,20 @@ export default {
           console.log(this.pokemons)
         })
     },
-
-
   },
   created() {
     this.getData()
   }
 }
-
-
 </script>
 
-<template>
-  <PokedexSearch />
-  <div class="button_content">
-    <button class="button_search">Pesquisar</button>
-  </div>
-  <div v-for="(pokemon, index) in pokemons">
-    <PokeCard :data="pokemon" :index="index + 1" />
-  </div>
-
-</template>
-
 <style lang="scss" scoped>
-button {
-  background-color: transparent;
-  border: none;
-  box-shadow: 1px 1px 12px #111;
-  color: #fff;
-  padding: 10px 20px;
-  cursor: pointer;
+.logo-pokemon{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
 }
-
 .button_content {
   display: flex;
   justify-content: center;
