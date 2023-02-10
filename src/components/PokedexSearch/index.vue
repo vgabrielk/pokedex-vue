@@ -74,11 +74,12 @@ export default {
     justify-content: center;
     align-items: center;
     border-radius: 6px;
-    background-color: #111;
     border: none;
     outline: none;
+    color: #111;
+    background-color: #0099ff;
     color: #fff;
-    border: 1px solid #fff;
+    font-weight: bold;
     margin-left: 30px;
     cursor: pointer;
 
@@ -94,11 +95,10 @@ export default {
     justify-content: center;
     align-items: center;
     border-radius: 6px;
-    background-color: #111;
     border: none;
     outline: none;
-    color: #fff;
-    border: 1px solid #f70000;
+    color: #000000;
+    background-color: #ffffff;
     margin-left: 8px;
     cursor: pointer;
 }
