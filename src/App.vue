@@ -16,31 +16,27 @@ export default {
   name: "App",
   data() {
     return {
-      api: []
+      api: [],
+      pokemons: []
     }
   },
 
   methods: {
-    async getData(url = 'https://pokeapi.co/api/v2/pokemon') {
-      axios.get(url)
-        .then(({ data }) => this.api = data)
+    async getData() {
+      let endpoints = []
+      for (let i = 1; i < 50; i++) {
+        endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`)
+      }
+      let response = axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+        .then(res => {
+          this.pokemons = res
+          console.log(this.pokemons)
+        })
     },
-    next() {
-      this.getData(this.api.next)
-    },
-    previous() {
-      this.getData(this.api.previous)
-    },
-    searchData(){
-      const title = this.searchStore.search.toLowerCase()
-      const data = [...this.api.results];
-      data.filter(item => item.name.toLowerCase().indexOf(title - 1))
-      this.api.results = data
-      console.log(data)
-    }
-    
+
+
   },
-  mounted() {
+  created() {
     this.getData()
   }
 }
@@ -51,30 +47,31 @@ export default {
 <template>
   <PokedexSearch />
   <div class="button_content">
-    <button class="button_search" @click="searchData">Pesquisar</button>
+    <button class="button_search">Pesquisar</button>
   </div>
-  <div v-for="pokemon in api.results">
-    <PokeCard :data="pokemon" />
+  <div v-for="(pokemon, index) in pokemons">
+    <PokeCard :data="pokemon" :index="index + 1" />
   </div>
-  <button @click="previous">Previous</button>
-  <button @click="next">Next</button>
+
 </template>
 
 <style lang="scss" scoped>
-  button {
-    background-color: transparent;
-    border: none;
-    box-shadow: 1px 1px 12px #111;
-    color: #fff;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-.button_content{
+button {
+  background-color: transparent;
+  border: none;
+  box-shadow: 1px 1px 12px #111;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.button_content {
   display: flex;
   justify-content: center;
-  .button_search{
+
+  .button_search {
     transform: translateY(-20px);
     border-radius: 6px;
-  }  
+  }
 }
 </style>
