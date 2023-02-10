@@ -5,7 +5,8 @@ export default {
     pokeName: "PokeCard",
     data() {
         return {
-            endpoints: []
+            endpoints: [],
+            detailsId: null
         }
     },
     props: {
@@ -15,24 +16,24 @@ export default {
     methods: {
 
         getIndex(data) {
-            console.log(data.data.id)
+            this.detailsId = data.data.id
         }
     },
-    mounted() {
-
-    }
 
 
 }
 
 </script>
 <template>
-    <div class="card" @click="this.getIndex(data)">
-        <div class="card-data">
-            <img class="pokemon_image" :src="data.data.sprites.front_default" alt="">
-            <p>{{ data.data.name }}</p>
+    <router-link :to=" '/details/' + data.data.id ">
+        <div class="card" @click="this.getIndex(data)">
+            <div class="card-data">
+                <img class="pokemon_image" :src="data.data.sprites.front_default" alt="">
+                <p>{{ data.data.name }}</p>
+            </div>
         </div>
-    </div>
+    </router-link>
+    <router-view/>
 </template>
 
 <style lang="scss" scoped>
