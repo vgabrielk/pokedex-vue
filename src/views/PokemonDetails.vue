@@ -86,7 +86,7 @@ export default {
 
 <style lang="scss" scoped>
 .big-card {
-    height: 80vh;
+    height: 68vh;
     width: 80%;
     padding: 10px;
     box-shadow: 1px 1px 12px black;
@@ -107,12 +107,14 @@ export default {
             box-sizing: border-box;
             border-radius: 6px;
             box-shadow: 1px 1px 12px black;
+            position: relative;
+            z-index: 99;
         }
 
         .pokemon-image {
             position: absolute;
             top: 50%;
-            right: -8rem;
+            right: -4rem;
             transform: translateY(-50%);
             width: 420px;
         }

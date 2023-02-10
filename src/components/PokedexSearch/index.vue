@@ -1,12 +1,23 @@
 <script>
 
 import { useSearchStore } from '../../stores/SearchStore';
+
+
 export default {
+
+    setup() {
+        const searchStore = useSearchStore()
+        return { searchStore }
+    },
+    props: {
+        fetchFilter: Function,
+        clearData: Function
+    },
     pokeName: "PokedexSearch",
 
     methods: {
-        filter(e) {
-            useSearchStore().search = e.target.value
+        getInputData(e) {
+            this.searchStore.search = e.target.value
         }
     },
 }
@@ -14,7 +25,10 @@ export default {
 </script>
 <template>
     <section class="pokedex-search">
-        <input v-on:change="filter($event)" type='text' placeholder="Type pokemon name" class="_input" />
+        <input @keydown.enter.prevent="this.fetchFilter" :value="searchStore.search" v-on:change="getInputData($event)"
+            type='text' placeholder="Type pokemon name" class="_input" />
+        <button class="button_submit" @click="this.fetchFilter">Submit</button>
+        <button class="button_clear" @click="this.clearData">Clear</button>
     </section>
 </template>
 
@@ -43,6 +57,38 @@ export default {
             color: #fff;
         }
     }
+}
+
+.button_submit {
+    padding: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #111;
+    border: none;
+    outline: none;
+    color: #fff;
+    border: 1px solid #fff;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.button_clear {
+    padding: 10px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #111;
+    border: none;
+    outline: none;
+    color: #fff;
+    border: 1px solid #f70000;
+    margin-left: 8px;
+    cursor: pointer;
 }
 </style>
 

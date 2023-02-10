@@ -1,6 +1,6 @@
 <template>
   <img class="logo-pokemon" src="../../public/img/logo.png" alt="">
-  <PokedexSearch />
+  <PokedexSearch :fetchFilter="fetchFilter" :clearData="clearData" />
   <div v-for="pokemon in pokemons">
     <PokeCard :data="pokemon" />
   </div>
@@ -18,13 +18,12 @@ export default {
     return { searchStore }
   },
   components: {
-    'PokeCard': PokeCard,
-    'PokedexSearch': PokedexSearch
+    PokeCard,
+    PokedexSearch
   },
   name: "App",
   data() {
     return {
-      api: [],
       pokemons: []
     }
   },
@@ -35,26 +34,43 @@ export default {
       for (let i = 1; i < 50; i++) {
         endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`)
       }
-      let response = axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
         .then(res => {
           this.pokemons = res
           console.log(this.pokemons)
         })
     },
+    fetchFilter() {
+      const data = [...this.pokemons];
+      const searchType = this.searchStore.search.toLowerCase()
+      
+      this.pokemons = data.filter(item => {
+        if (searchType === '') {
+          return item;
+        }
+        return item.data.name.toLowerCase().includes(searchType.toLowerCase())
+        
+      })
+    },
+    clearData () {
+      this.searchStore.search = ''
+      this.getData()
+    }
   },
-  created() {
+  mounted() {
     this.getData()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.logo-pokemon{
+.logo-pokemon {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 180px;
 }
+
 .button_content {
   display: flex;
   justify-content: center;
