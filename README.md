@@ -17,6 +17,9 @@
 **Front-end:** VueJS, Vue Router, Pinia, Scss, Axios
 
 
+## Link do deploy
+
+**Deploy:** https://pokedex-copy-base.netlify.app/
 
 
 ## Rodando localmente
