@@ -1,11 +1,8 @@
 <template>
   <img class="logo-pokemon" src="/img/logo.png" alt="">
   <PokedexSearch :fetchFilter="fetchFilter" :clearData="clearData" />
-  <div v-for="pokemon in pokemons">
-    <PokeCard :data="pokemon" />
-  </div>
+  <PokeCard v-for="pokemon in filteredPokemons" :key="pokemon.data.name" :data="pokemon"/>
 </template>
-
 <script>
 import PokedexSearch from '../components/PokedexSearch/index.vue'
 import PokeCard from '../components/PokeCard/index.vue'
@@ -27,30 +24,17 @@ export default {
       pokemons: []
     }
   },
-
+  computed: {
+    filteredPokemons() {
+      const searchType = this.searchStore.search.toLowerCase()
+      return this.pokemons.filter(pokemon => !searchType || pokemon.data.name.toLowerCase().includes(searchType))
+    }
+  },
   methods: {
     async getData() {
-      let endpoints = []
-      for (let i = 1; i < 50; i++) {
-        endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`)
-      }
-      axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-        .then(res => {
-          this.pokemons = res
-          console.log(this.pokemons)
-        })
-    },
-    fetchFilter() {
-      const data = [...this.pokemons];
-      const searchType = this.searchStore.search.toLowerCase()
-      
-      this.pokemons = data.filter(item => {
-        if (searchType === '') {
-          return item;
-        }
-        return item.data.name.toLowerCase().includes(searchType.toLowerCase())
-        
-      })
+      this.pokemons = await axios.all(
+        [...Array(50).keys()].map(i => axios.get(`https://pokeapi.co/api/v2/pokemon/${i + 1}`))
+      )
     },
     clearData () {
       this.searchStore.search = ''
@@ -62,7 +46,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .logo-pokemon {
   position: absolute;

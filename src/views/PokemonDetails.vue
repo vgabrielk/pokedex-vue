@@ -7,87 +7,78 @@
     <section class="big-card">
         <header class="header">
             <p>{{ data?.name }}</p>
-            <p :style="{ backgroundColor: pokemonColor() }" class="type-pokemon">{{ data?.types[0].type.name }}</p>
-            <img class="pokemon-image" :src="data.sprites.front_default" alt="">
-            <div :style="{ backgroundColor: pokemonColor() }" class="background-type-color">
-
-            </div>
+            <p :style="{ backgroundColor: pokemonColor() }" class="type-pokemon" v-if="data && data.types">{{
+                data.types[0].type.name
+            }}</p>
+            <img class="pokemon-image" v-if="data && data.sprites" :src="data.sprites.front_default" alt="">
+            <div :style="{ backgroundColor: pokemonColor() }" class="background-type-color"></div>
         </header>
         <div class="pokemon-info">
             <h3>Abilities :</h3>
-            <div v-for="(value, index) in data.abilities" :key="'value' + index">
-                <p :style="{ borderColor: pokemonColor() }" class="ability">{{ value.ability.name }}</p>
+            <div  v-for="(value, index) in data?.abilities" :key="'value' + index">
+                <p :style="{ borderColor: pokemonColor() }" class="ability" >{{ value.ability.name }}</p>
             </div>
             <div>
-                <p>Weight : {{ data.weight / 10 }}kg</p>
-                <p>Base experience : {{ data.base_experience }}XP</p>
+                <p v-if="data && data.weight">Weight : {{ data.weight / 10 }}kg</p>
+                <p v-if="data && data.base_experience">Base experience : {{ data.base_experience }}XP</p>
             </div>
         </div>
     </section>
 </template>
+  
 <script>
-import axios from "axios"
-import { useRoute } from "vue-router"
-export default {
-    name: 'PokemonDetails',
+import axios from "axios";
+import { useRoute } from "vue-router";
 
+export default {
+    name: "PokemonDetails",
     data() {
-        const route = useRoute()
+        const route = useRoute();
         return {
             id: route.params.id,
             data: null
-        }
+        };
     },
     methods: {
         async getDetails() {
-            axios.get(`https://pokeapi.co/api/v2/pokemon/${this.id}`)
+            axios
+                .get(`https://pokeapi.co/api/v2/pokemon/${this.id}`)
                 .then(res => {
                     if (res) {
-                        this.data = res.data
-                        console.log(this.data)
+                        this.data = res.data;
                     }
                 })
                 .catch(err => {
-                    console.log(err)
-                })
+                    console.log(err);
+                });
         },
         pokemonColor() {
-            const color = this?.data?.types[0].type.name
+            const color = this?.data?.types[0].type.name;
             switch (color) {
-                case 'poison':
-                    return '#ff7200'
-                    break;
-                case 'grass':
-                    return '#009000'
-                    break;
-                case 'fire':
-                    return 'red'
-                    break;
-                case 'normal':
-                    return ''
-                    break;
-                case 'fairy':
-                    return 'pink'
-                    break;
-                case 'water':
-                    return 'blue'
-                    break;
-                case 'bug':
-                    return '#5C4033	'
-                    break;
-                case 'electric':
-                    return 'yellow'
-                    break;
+                case "poison":
+                    return "#ff7200";
+                case "grass":
+                    return "#009000";
+                case "fire":
+                    return "red";
+                case "normal":
+                    return "";
+                case "fairy":
+                    return "pink";
+                case "water":
+                    return "blue";
+                case "bug":
+                    return "#5C4033";
+                case "electric":
+                    return "yellow";
             }
         }
     },
-
     created() {
-        this.getDetails()
+        this.getDetails();
     }
-
-}
-</script>
+};
+</script>  
 
 <style lang="scss" scoped>
 .big-card {
@@ -164,13 +155,15 @@ export default {
         border-style: solid;
     }
 
-    
+
 }
+
 .back-to-home {
     position: absolute;
     left: 10vw;
     top: 0;
     transform: translateY(3rem);
+
     a {
         color: #fff;
         font-weight: bold;

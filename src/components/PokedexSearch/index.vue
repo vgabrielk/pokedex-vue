@@ -1,3 +1,14 @@
+<template>
+    <section class="pokedex-search">
+        <input @keydown.enter.prevent="this.fetchFilter" :value="searchStore.search" v-on:change="getInputData($event)"
+            type='text' placeholder="Type pokemon name" class="_input" />
+        <span class='button-content'>
+            <button class="button_submit" @click="this.fetchFilter">Submit</button>
+            <button class="button_clear" @click="this.clearData">Clear</button>
+        </span>
+    </section>
+</template>
+
 <script>
 
 import { useSearchStore } from '../../stores/SearchStore';
@@ -23,16 +34,7 @@ export default {
 }
 
 </script>
-<template>
-    <section class="pokedex-search">
-        <input @keydown.enter.prevent="this.fetchFilter" :value="searchStore.search" v-on:change="getInputData($event)"
-            type='text' placeholder="Type pokemon name" class="_input" />
-        <span class='button-content'>
-            <button class="button_submit" @click="this.fetchFilter">Submit</button>
-            <button class="button_clear" @click="this.clearData">Clear</button>
-        </span>
-    </section>
-</template>
+
 
 <style lang="scss" scoped>
 .pokedex-search {
@@ -58,12 +60,14 @@ export default {
         &::placeholder {
             color: #fff;
         }
+        @media(max-width: 600px){
+            width: 100%;
+        }
     }
 
     @media(max-width: 600px) {
         flex-direction: column;
         align-items: flex-start;
-        width: 100%;
     }
 }
 
